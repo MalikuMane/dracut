@@ -42,6 +42,7 @@ gpg_decrypt() {
         GNUPGHOME="$gpghome" gpg-agent --quiet --daemon
         GNUPGHOME="$gpghome" gpg --quiet --no-tty --import < /root/crypt-public-key.gpg
         local smartcardSerialNumber
+        sleep 1
         smartcardSerialNumber="$(GNUPGHOME=$gpghome gpg --no-tty --card-status \
             | sed -n -r -e 's|Serial number.*: ([0-9]*)|\1|p' | tr -d '\n')"
         if [ -n "${smartcardSerialNumber}" ]; then
